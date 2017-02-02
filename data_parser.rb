@@ -19,6 +19,11 @@ class Delivery
               else "Leela"
               end
   end
+
+  def pilot?(driver)
+    pilot.include? driver
+  end
+
 end
 
 
@@ -36,6 +41,10 @@ sum = blank_array.inject(0){|cash, total| cash + total.money}
 puts sum
 
 puts blank_array.inspect
+
+fry = blank_array.select{|pilot| pilot.pilot? "Fry"}.collect(&:destination).count
+
+puts "Fry took #{fry} trips"
 #First try at summing total money made
 # total_money = []
 # CSV.foreach("planet_express_logs.csv", headers: true, header_converters:
