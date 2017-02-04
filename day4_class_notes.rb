@@ -71,3 +71,5 @@ puts "Our cheap movies are: #{cheapies.join(" and")}"
 leos = movie_objects.select{|film| film.stars? "Leonardo DiCaprio"}
 
 puts "Our Leo movies were: #{leos.join(" and ")}"
+
+puts movie_objects.cheap?
