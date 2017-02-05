@@ -66,7 +66,7 @@ attr_accessor :file
   end
 end
 
-csv_file = "planet_express_logs.csv"
+# csv_file = "planet_express_logs.csv"
 
 tracker=Parse.new
 tracker.parse_data(file_name)
