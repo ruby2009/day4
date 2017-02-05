@@ -53,16 +53,16 @@ attr_accessor :file
     "#{driver} flew " + trips(driver) + "times and made " + bonus(driver) + "dollars in bonus!"
   end
 
-  def self.money_this_week
-    file(:money_we_made).inject(0, &:+).inspect
-  end
-
   def trips(driver)
     file.select{|flyist| flyist.pilot==driver}.count
   end
 
   def bonus(driver)
     file.select{|flyist| flyist.pilot==driver}.collect(&:bonus).inject(:+)
+  end
+
+  def money_by_destination(planet)
+    file.select{|place| place.destination==planet}.collect(&:money).inject(:+)
   end
 
   def planet_tracker(driver)
@@ -74,14 +74,13 @@ csv_file = "planet_express_logs.csv"
 
 tracker=Parse.new
 tracker.parse_data(file_name)
-tracker.trips("Fry")
-tracker.bonus("Fry")
-tracker.planet_tracker("Fry")
 
 profit=tracker.file.collect(&:money).inject(:+)
 pilots=tracker.file.collect(&:pilot).uniq
+planets=tracker.file.collect(&:destination).uniq
 
-puts "#{profit}: total made"
+puts "$#{profit}: total money made this week"
 
 pilots.each{|pilot| puts "#{pilot} made #{tracker.trips(pilot)} trips"}
-pilots.each{|pilot| puts "#{pilot} made #{tracker.bonus(pilot)} dollars in bonus"}
+pilots.each{|pilot| puts "#{pilot} made $#{tracker.bonus(pilot)} dollars in bonus"}
+planets.each{|planet| puts "#{planet} received $#{tracker.money_by_destination(planet)} dollars in shipments this week"}
