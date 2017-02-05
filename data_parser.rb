@@ -49,10 +49,6 @@ attr_accessor :file
     end
   end
 
-  def test_output (driver)
-    "#{driver} flew " + trips(driver) + "times and made " + bonus(driver) + "dollars in bonus!"
-  end
-
   def trips(driver)
     file.select{|flyist| flyist.pilot==driver}.count
   end
